@@ -3,93 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Code Runner</title>
+    <title>JavaScript Runner</title>
     <style>
         body {
-            display: flex;
-            height: 100vh;
             margin: 0;
-            background: #8B4513;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #8B4513, #A0522D, #D2691E, #CD853F);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             font-family: Arial, sans-serif;
-            overflow: hidden;
-            position: relative;
         }
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        .floating-shape {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 5s ease-in-out infinite;
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
         }
-        .circle {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-        }
-        .square {
-            width: 80px;
-            height: 80px;
-        }
-        #editor, #output {
-            flex: 1;
-            padding: 20px;
-            box-sizing: border-box;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            margin: 20px;
-        }
-        #editor {
-            border-right: 1px solid #ddd;
-        }
+
         textarea {
             width: 100%;
-            height: calc(100% - 60px);
-            padding: 10px;
-            box-sizing: border-box;
-            font-size: 16px;
+            height: 150px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid #8B4513;
             border-radius: 10px;
-            border: 1px solid #ccc;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
+            font-family: monospace;
             font-size: 16px;
-            background-color: red;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #8B4513;
             color: white;
             border: none;
-            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+
+        button:hover {
+            background-color: #A0522D;
+        }
+
+        #output {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            min-height: 50px;
+            font-family: monospace;
         }
     </style>
 </head>
 <body>
-    <div class="floating-shape circle" style="top: 10%; left: 20%;"></div>
-    <div class="floating-shape square" style="top: 50%; left: 60%;"></div>
-    <div class="floating-shape circle" style="top: 80%; left: 10%;"></div>
-    <div class="floating-shape square" style="top: 30%; left: 80%;"></div>
-    
-    <div id="editor">
-        <textarea id="code" placeholder="Write your JavaScript code here..."></textarea>
+    <div class="container">
+        <h1>JavaScript Runner</h1>
+        <textarea id="code" placeholder="Enter your JavaScript code here..."></textarea>
         <button onclick="runCode()">Run Code</button>
+        <div id="output"></div>
     </div>
-    <div id="output">
-        <iframe id="result"></iframe>
-    </div>
+
     <script>
         function runCode() {
             const code = document.getElementById('code').value;
-            const iframe = document.getElementById('result');
-            iframe.contentWindow.document.open();
-            iframe.contentWindow.document.write('<script>' + code + '<\/script>');
-            iframe.contentWindow.document.close();
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = ''; // Clear previous output
+
+            try {
+                const result = eval(code);
+                outputDiv.textContent = result;
+            } catch (error) {
+                outputDiv.textContent = 'Error: ' + error.message;
+            }
         }
     </script>
 </body>
