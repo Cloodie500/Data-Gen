@@ -36,14 +36,14 @@
         }
 
         .square {
-            width: 50px;
-            height: 50px;
+            width: 20px;
+            height: 20px;
             animation-duration: 6s;
         }
 
         .circle {
-            width: 50px;
-            height: 50px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             animation-duration: 8s;
         }
@@ -56,6 +56,8 @@
             text-align: center;
             width: 90%;
             max-width: 600px;
+            position: relative;
+            z-index: 1;
         }
 
         textarea {
@@ -63,6 +65,7 @@
             height: 150px;
             margin-bottom: 15px;
             resize: none;
+            z-index: 1;
         }
 
         button {
@@ -72,6 +75,7 @@
             color: white;
             border-radius: 5px;
             cursor: pointer;
+            z-index: 1;
         }
 
         button:hover {
@@ -86,6 +90,7 @@
             overflow-y: auto;
             white-space: pre-wrap;
             word-break: break-all;
+            z-index: 1;
         }
     </style>
 </head>
@@ -97,6 +102,10 @@
     <div class="circle" style="top: 80%; left: 50%;"></div>
     <div class="square" style="top: 70%; left: 10%;"></div>
     <div class="circle" style="top: 20%; left: 90%;"></div>
+    <div class="square" style="top: 40%; left: 60%;"></div>
+    <div class="circle" style="top: 60%; left: 30%;"></div>
+    <div class="square" style="top: 20%; left: 50%;"></div>
+    <div class="circle" style="top: 70%; left: 40%;"></div>
 
     <div id="container">
         <h1>Data URL Generator</h1>
