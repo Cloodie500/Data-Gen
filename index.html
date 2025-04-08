@@ -13,15 +13,39 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            background: linear-gradient(135deg, #8B4513, #A0522D, #D2691E);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            background-color: #D2B48C; /* Light brown background */
+            position: relative;
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .square, .circle {
+            position: absolute;
+            background-color: rgba(139, 69, 19, 0.5); /* Light brown color with transparency */
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .square {
+            width: 50px;
+            height: 50px;
+            animation-duration: 6s;
+        }
+
+        .circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            animation-duration: 8s;
         }
 
         #container {
@@ -66,6 +90,14 @@
     </style>
 </head>
 <body>
+    <!-- Floating squares and circles -->
+    <div class="square" style="top: 10%; left: 20%;"></div>
+    <div class="circle" style="top: 30%; left: 70%;"></div>
+    <div class="square" style="top: 50%; left: 40%;"></div>
+    <div class="circle" style="top: 80%; left: 50%;"></div>
+    <div class="square" style="top: 70%; left: 10%;"></div>
+    <div class="circle" style="top: 20%; left: 90%;"></div>
+
     <div id="container">
         <h1>Data URL Generator</h1>
         <textarea id="inputHtml" placeholder="Enter your HTML code here..."></textarea>
