@@ -1,2 +1,2 @@
 # Runner
-http://Cloodie500.github.io/Data-Gen
+http://Cloodie500.github.io/Data-URL
