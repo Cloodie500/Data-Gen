@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Code Runner</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(45deg, #8B4513, #CD853F);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+            font-family: Arial, sans-serif;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        #editor, #output {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #editor {
+            border-right: 1px solid #ddd;
+        }
+        textarea {
+            width: 100%;
+            height: calc(100% - 40px);
+            padding: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="editor">
+        <textarea id="code" placeholder="Write your JavaScript code here..."></textarea>
+        <button onclick="runCode()">Run Code</button>
+    </div>
+    <div id="output">
+        <iframe id="result"></iframe>
+    </div>
+    <script>
+        function runCode() {
+            const code = document.getElementById('code').value;
+            const iframe = document.getElementById('result');
+            iframe.contentWindow.document.open();
+            iframe.contentWindow.document.write('<script>' + code + '<\/script>');
+            iframe.contentWindow.document.close();
+        }
+    </script>
+</body>
+</html>
