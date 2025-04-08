@@ -17,37 +17,6 @@
             position: relative;
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-
-        .square, .circle {
-            position: absolute;
-            background-color: rgba(139, 69, 19, 0.5); /* Light brown color with transparency */
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .square {
-            width: 20px;
-            height: 20px;
-            animation-duration: 6s;
-        }
-
-        .circle {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            animation-duration: 8s;
-        }
-
         #container {
             background-color: white;
             padding: 20px;
@@ -57,7 +26,7 @@
             width: 90%;
             max-width: 600px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
         textarea {
@@ -65,7 +34,7 @@
             height: 150px;
             margin-bottom: 15px;
             resize: none;
-            z-index: 1;
+            z-index: 2;
         }
 
         button {
@@ -75,7 +44,7 @@
             color: white;
             border-radius: 5px;
             cursor: pointer;
-            z-index: 1;
+            z-index: 2;
         }
 
         button:hover {
@@ -90,31 +59,80 @@
             overflow-y: auto;
             white-space: pre-wrap;
             word-break: break-all;
+            z-index: 2;
+        }
+
+        .floating-squares,
+        .floating-circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 1;
+            overflow: hidden;
+        }
+
+        .square,
+        .circle {
+            position: absolute;
+            background-color: rgba(139, 69, 19, 0.5); /* Light brown color with transparency */
+            animation: floatAnimation 10s linear infinite;
+        }
+
+        .square {
+            width: 20px;
+            height: 20px;
+        }
+
+        .circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        @keyframes floatAnimation {
+            0% {
+                transform: translateY(100vh);
+            }
+
+            100% {
+                transform: translateY(-100vh);
+            }
         }
     </style>
+    <script>
+        function generateDataUrl() {
+            const inputHtml = document.getElementById('inputHtml').value;
+            const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(inputHtml);
+            document.getElementById('result').innerHTML = '<strong>Data URL:</strong> <a href="' + dataUrl + '" target="_blank">' + dataUrl + '</a>';
+        }
+
+        function createFloatingShapes() {
+            const squaresContainer = document.querySelector('.floating-squares');
+            const circlesContainer = document.querySelector('.floating-circles');
+
+            for (let i = 0; i < 20; i++) {
+                const square = document.createElement('div');
+                square.classList.add('square');
+                square.style.left = `${Math.random() * 100}vw`;
+                square.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                squaresContainer.appendChild(square);
+
+                const circle = document.createElement('div');
+                circle.classList.add('circle');
+                circle.style.left = `${Math.random() * 100}vw`;
+                circle.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                circlesContainer.appendChild(circle);
+            }
+        }
+
+        window.onload = createFloatingShapes;
+    </script>
 </head>
 <body>
-    <!-- Floating squares and circles -->
-    <div class="square" style="top: 10%; left: 20%;"></div>
-    <div class="circle" style="top: 30%; left: 70%;"></div>
-    <div class="square" style="top: 50%; left: 40%;"></div>
-    <div class="circle" style="top: 80%; left: 50%;"></div>
-    <div class="square" style="top: 70%; left: 10%;"></div>
-    <div class="circle" style="top: 20%; left: 90%;"></div>
-    <div class="square" style="top: 40%; left: 60%;"></div>
-    <div class="circle" style="top: 60%; left: 30%;"></div>
-    <div class="square" style="top: 20%; left: 50%;"></div>
-    <div class="circle" style="top: 70%; left: 40%;"></div>
-    <div class="square" style="top: 15%; left: 15%;"></div>
-    <div class="circle" style="top: 35%; left: 80%;"></div>
-    <div class="square" style="top: 55%; left: 25%;"></div>
-    <div class="circle" style="top: 75%; left: 55%;"></div>
-    <div class="square" style="top: 25%; left: 35%;"></div>
-    <div class="circle" style="top: 45%; left: 65%;"></div>
-    <div class="square" style="top: 65%; left: 75%;"></div>
-    <div class="circle" style="top: 85%; left: 85%;"></div>
-
+    <div class="floating-squares"></div>
+    <div class="floating-circles"></div>
     <div id="container">
         <h1>Data URL Generator</h1>
         <textarea id="inputHtml" placeholder="Enter your HTML code here..."></textarea>
@@ -122,13 +140,5 @@
         <button onclick="generateDataUrl()">Generate Data URL</button>
         <div id="result"></div>
     </div>
-
-    <script>
-        function generateDataUrl() {
-            const inputHtml = document.getElementById('inputHtml').value;
-            const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(inputHtml);
-            document.getElementById('result').innerHTML = '<strong>Data URL:</strong> <a href="' + dataUrl + '" target="_blank">' + dataUrl + '</a>';
-        }
-    </script>
 </body>
 </html>
