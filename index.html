@@ -100,6 +100,19 @@
                 transform: translateY(-100vh);
             }
         }
+
+        /* Watermark */
+        .watermark {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 3;
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            pointer-events: none; /* Prevent interaction */
+        }
     </style>
     <script>
         function generateDataUrl() {
@@ -133,6 +146,7 @@
 <body>
     <div class="floating-squares"></div>
     <div class="floating-circles"></div>
+    <div class="watermark">Made by Cloodie500</div>
     <div id="container">
         <h1>Data URL Generator</h1>
         <textarea id="inputHtml" placeholder="Enter your HTML code here..."></textarea>
